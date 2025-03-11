@@ -27,7 +27,7 @@ app.get("/", async (req, res) => {
   }
 });
 
-// Individual creature route - Show details for one creature
+// Individual creature route - Shows details for one creature
 app.get("/creature/:name", async (req, res) => {
   const creatureName = req.params.name.replace(/-/g, " ").toLowerCase();
   try {
@@ -44,6 +44,25 @@ app.get("/creature/:name", async (req, res) => {
     res.render("creature", { creature });
   } catch (error) {
     console.error("Error fetching creature:", error);
+    res.status(500).send("Internal Server Error");
+  }
+});
+
+app.get("/summon-random", async (req, res) => {
+  try {
+    // Query to select a random creature from the database
+    const result = await db.query(
+      "SELECT * FROM creatures ORDER BY RANDOM() LIMIT 1"
+    );
+
+    if (result.rows.length > 0) {
+      const randomCreature = result.rows[0];
+      res.render("creature", { creature: randomCreature });
+    } else {
+      res.status(404).send("No creatures found");
+    }
+  } catch (error) {
+    console.error("Error fetching random creature:", error);
     res.status(500).send("Internal Server Error");
   }
 });
