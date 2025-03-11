@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title><%= creature.name %> - Mythical Grimoire</title>
+    <link rel="stylesheet" href="/styles.css" />
+  </head>
+  <body>
+    <div class="grimoire-page">
+      <h1><%= creature.name %></h1>
+      <img
+        src="<%= creature.image || '/images/default.png' %>"
+        alt="<%= creature.name %>"
+      />
+      <p><strong>Type:</strong> <%= creature.type %></p>
+      <p><%= creature.description %></p>
+      <a href="/">⬅️ Back to Grimoire</a>
+    </div>
+  </body>
+</html>

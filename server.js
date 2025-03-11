@@ -27,6 +27,27 @@ app.get("/", async (req, res) => {
   }
 });
 
+// Individual creature route - Show details for one creature
+app.get("/creature/:name", async (req, res) => {
+  const creatureName = req.params.name.replace(/-/g, " ").toLowerCase();
+  try {
+    const result = await db.query(
+      "SELECT * FROM creatures WHERE LOWER(name) = $1",
+      [creatureName]
+    );
+    const creature = result.rows[0];
+
+    if (!creature) {
+      return res.status(404).send("<h1>Creature not found</h1>");
+    }
+
+    res.render("creature", { creature });
+  } catch (error) {
+    console.error("Error fetching creature:", error);
+    res.status(500).send("Internal Server Error");
+  }
+});
+
 const port = 4500;
 app.listen(port, () => {
   console.log(`Server running on port: ${port}`);

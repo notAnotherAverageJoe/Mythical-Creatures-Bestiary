@@ -16,16 +16,17 @@
 
     <div id="creatures">
       <% creatures.forEach(creature => { %>
-      <div class="creature">
-        <h2><%= creature.name %></h2>
-        <img
-          src="<%= creature.image || '/images/default.png' %>"
-          alt="<%= creature.name %>"
-        />
-        <p><strong>Type:</strong> <%= creature.type %></p>
-        <p><%= creature.description %></p>
-      </div>
+        <a href="/creature/<%= creature.name.toLowerCase().replace(/\s+/g, '-') %>">
+          <div class="creature">
+            <h2><%= creature.name %></h2>
+            <img src="<%= creature.image || '/images/default.png' %>" alt="<%= creature.name %>">
+            <p><strong>Type:</strong> <%= creature.type %></p>
+            <p><%= creature.description.substring(0, 100) %>...</p>
+          </div>
+        </a>
       <% }) %>
+    </div>
+    
     </div>
 
     <script>
