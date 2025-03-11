@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Grimoire of Mythical Creatures</title>
+    <link rel="stylesheet" href="/styles.css" />
+  </head>
+  <body>
+    <h1>📜 Grimoire of Mythical Creatures 📜</h1>
+
+    <div class="search-container">
+      <input type="text" id="search" placeholder="Seek a creature by name..." />
+      <button onclick="searchCreatures()">🔍 Search</button>
+    </div>
+
+    <div id="creatures">
+      <% creatures.forEach(creature => { %>
+      <div class="creature">
+        <h2><%= creature.name %></h2>
+        <img
+          src="<%= creature.image || '/images/default.png' %>"
+          alt="<%= creature.name %>"
+        />
+        <p><strong>Type:</strong> <%= creature.type %></p>
+        <p><%= creature.description %></p>
+      </div>
+      <% }) %>
+    </div>
+
+    <script>
+      function searchCreatures() {
+        let input = document.getElementById("search").value.toLowerCase();
+        let creatures = document.querySelectorAll(".creature");
+
+        creatures.forEach((creature) => {
+          let name = creature.querySelector("h2").innerText.toLowerCase();
+          if (name.includes(input)) {
+            creature.style.display = "block";
+          } else {
+            creature.style.display = "none";
+          }
+        });
+      }
+    </script>
+  </body>
+</html>
